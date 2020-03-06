@@ -67,6 +67,35 @@ public class ConsoleView {
 		}
 	
 	}
+	
+	static void displayClosedContacts()  
+	{
+		String[][] contactStrings;
+		DBHandler handler;
+		try
+		{
+			handler = new DBHandler();
+			contactStrings = handler.GetFieldAllContracts();
+			System.out.println("----Inactive Contracts----");
+			for (int i = 0; i <= contactStrings.length-1; i++)
+			{
+				for (int j = 0; j <=contactStrings.length -1; j++)
+				{
+					if (Boolean.parseBoolean(contactStrings[i][2]) == false)
+					{
+						System.out.print(contactStrings[i][j] + " ");
+					}
+				}
+			}
+			System.out.println("");
+
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	}
 	public static void quit() {
 		System.out.println("Good Bye");
 		System.exit(0);

@@ -62,5 +62,11 @@ class TestDBHandler {
 			e.printStackTrace();
 		}
 	}
+	@Test
+	void test_Closed_Contracts() throws SQLException 
+	{
+		ConsoleView view = new  ConsoleView();
+		view.displayClosedContacts();
+	}
 
 }
