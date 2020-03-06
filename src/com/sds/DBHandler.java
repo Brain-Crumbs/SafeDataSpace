@@ -51,6 +51,10 @@ public class DBHandler {
 		
 	}
 	
+	public long[] getSpaceData() {
+		long[] spaceData = {0, 0, 0};
+		return spaceData;
+	}
 	
 	
 
