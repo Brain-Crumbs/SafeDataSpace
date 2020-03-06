@@ -46,13 +46,13 @@ public class ConsoleView {
 			DBHandler handler = new DBHandler();
 			contactStrings = handler.GetFieldAllContracts();
 			System.out.println("-----Contacts-----");
-
+			System.out.println("Name\t  Space used\t\tAcvtive");
 			for (int i = 0; i < contactStrings.length; i++)
 			{
 				for (int j = 0; j < contactStrings[i].length; j++)
 				{
 					
-					System.out.print(contactStrings[i][j] +" ");
+					System.out.print(contactStrings[i][j] +"\t\t");
 					if (j==2)
 					{
 						System.out.println();
