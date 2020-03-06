@@ -17,7 +17,8 @@ import javax.swing.ListSelectionModel;
 public class DBHandler {
 	
 	private static final String GET_ALL_CONTRACTS = "select * from contract";
-	
+	private static final String INSERT_INTO_FILES = "Insert into files values (fileid, ?, ?)";
+	private static final String GET_ALL_FILES = "select * from fileid";
 	private static final String URL = "jdbc:mysql://localhost:3306/safedatabase";
 	private static final String USER = "root";
 	private static final String PASS = "root";
@@ -44,21 +45,27 @@ public class DBHandler {
 			boolean isActive = rs.getBoolean("isActive");
 			String amountString = Integer.toString(amountUsed);
 			String isActiveString = Boolean.toString(isActive);
-			 contractString = name + " " + amountString + " " + isActiveString;
-			 contractList.add(contractString);
-				Object[] contractStrings = contractList.toArray();
+			contractString = name + " " + amountString + " " + isActiveString;
+			contractList.add(contractString);
+			Object[] contractStrings = contractList.toArray();
 
 		}
 		
 	}
-	
-	public void addToDatabase() throws SQLException {
-		Connection con = DriverManager.getConnection(URL, USER, PASS);
-		ConsoleView cv = new ConsoleView();
-		PreparedStatement ps = con.prepareStatement("Insert into files values (fileid " + ConsoleView.contractID + ConsoleView.size + ConsoleView.path + ")");
-		ps.execute();
-		ps = con.prepareStatement("select * from fileid");
-		ps.execute();
+	//+ ConsoleView.contractID + ConsoleView.size + ConsoleView.path + 
+	public void addFilesToDatabase(int[] fileData){
+		
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement(INSERT_INTO_FILES);
+			ps.setInt(1, fileData[0]);
+			ps.setInt(2, fileData[1]);
+			ps.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 
