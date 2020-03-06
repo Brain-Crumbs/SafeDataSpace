@@ -19,9 +19,12 @@ public class DBHandler {
 	private static final String GET_ALL_CONTRACTS = "select * from contract";
 	private static final String INSERT_INTO_FILES = "Insert into files values (fileid, ?, ?)";
 	private static final String GET_ALL_FILES = "select * from fileid";
+	private static final String UPDATE_CONTRACT_TOTAL_SIZE = "Update contract set amountUsed = amountUsed + ? where contractID  = ?";
+	
 	private static final String URL = "jdbc:mysql://localhost:3306/safedatabase";
 	private static final String USER = "root";
 	private static final String PASS = "root";
+	
 	
 	private Connection con;
 	private ResultSet rs = null;
@@ -54,12 +57,19 @@ public class DBHandler {
 	}
 	//+ ConsoleView.contractID + ConsoleView.size + ConsoleView.path + 
 	public void addFilesToDatabase(int[] fileData){
+		int contractID = fileData[0];
+		int size = fileData[1];
 		
 		PreparedStatement ps;
 		try {
 			ps = con.prepareStatement(INSERT_INTO_FILES);
-			ps.setInt(1, fileData[0]);
-			ps.setInt(2, fileData[1]);
+			ps.setInt(1, contractID);
+			ps.setInt(2, size);
+			ps.execute();
+			
+			ps = con.prepareStatement(UPDATE_CONTRACT_TOTAL_SIZE);
+			ps.setInt(1, size);
+			ps.setInt(2, contractID);
 			ps.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
