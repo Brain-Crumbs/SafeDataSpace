@@ -3,6 +3,7 @@ package com.sds;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
 
 public class ConsoleView {
 	
@@ -37,7 +38,35 @@ public class ConsoleView {
 		}
 		
 	}
+	static void displayAllContacts() 
+	{
+		try
+		{
+			String [][] contactStrings;
+			DBHandler handler = new DBHandler();
+			contactStrings = handler.GetFieldAllContracts();
+			System.out.println("-----Contacts-----");
+
+			for (int i = 0; i < contactStrings.length; i++)
+			{
+				for (int j = 0; j < contactStrings[i].length; j++)
+				{
+					
+					System.out.print(contactStrings[i][j] +" ");
+					if (j==2)
+					{
+						System.out.println();
+					}
+					
+				}
+			}
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
+	}
 	public static void quit() {
 		System.out.println("Good Bye");
 		System.exit(0);

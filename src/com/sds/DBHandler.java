@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.concurrent.CountDownLatch;
 
@@ -28,14 +29,14 @@ public class DBHandler {
 	public DBHandler() throws SQLException {
 		this.con = DriverManager.getConnection(URL,USER,PASS);
 	}
-	
+	String[][] contractArray = new String[3][3];
 	ArrayList<String> contractList = new ArrayList<>();
 	String contractString;
-	public void GetFieldAllContracts() throws SQLException 
+	public String[][] GetFieldAllContracts() throws SQLException 
 	{
 		pst = con.prepareStatement(GET_ALL_CONTRACTS);
 		rs = pst.executeQuery(GET_ALL_CONTRACTS);
-		
+		int count = 0;
 		while (rs.next())
 		{
 			String name = rs.getString("name");
@@ -44,11 +45,18 @@ public class DBHandler {
 			String amountString = Integer.toString(amountUsed);
 			String isActiveString = Boolean.toString(isActive);
 			 contractString = name + " " + amountString + " " + isActiveString;
-			 contractList.add(contractString);
-				Object[] contractStrings = contractList.toArray();
-
+			// contractList.add(contractString);
+						 
+				contractArray[count][0] = name;
+				contractArray[count][1] = amountString;
+				contractArray[count][2] = isActiveString;
+				count+=1;
+				//System.out.println(count);
+			
+			 
 		}
-		
+		 return contractArray;
+
 	}
 	
 	

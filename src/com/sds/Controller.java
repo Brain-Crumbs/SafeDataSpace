@@ -21,7 +21,7 @@ public class Controller {
 			
 			MenuOption mo = ConsoleView.displayMainMenu();
 			
-			if (mo == MenuOption.DISPLAY_ALL);
+			if (mo == MenuOption.DISPLAY_ALL) ConsoleView.displayAllContacts(); ;
 			if (mo == MenuOption.DISPLAY_CLOSED);
 			if (mo == MenuOption.SEARCH) subMenuSearch();
 			if (mo == MenuOption.DISPLAY_STATUS);
