@@ -4,63 +4,86 @@ import java.sql.SQLException;
 
 public class Controller {
 	
+	ConsoleView view;
+	DBHandler dbHandler;
 	
-	public static void main(String[] args) {
-		try
-		{
-			DBHandler dbHandler = new DBHandler();
-			dbHandler.GetFieldAllContracts();
-		} catch (SQLException e)
-		{
-			// TODO Auto-generated catch block
+	public Controller() {
+		this.view = new ConsoleView();
+		try {
+			this.dbHandler = new DBHandler();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		// Loop in MAIN MENU until QUIT
-		while (true) {
-			
-			MenuOption mo = ConsoleView.displayMainMenu();
-			
-			if (mo == MenuOption.DISPLAY_ALL);
-			if (mo == MenuOption.DISPLAY_CLOSED);
-			if (mo == MenuOption.SEARCH) subMenuSearch();
-			if (mo == MenuOption.DISPLAY_STATUS);
-			if (mo == MenuOption.ADD);
-			if (mo == MenuOption.QUIT) ConsoleView.quit();
-			
-		}
-		
 	}
 	
-	private static void subMenuSearch() {
+	public void mainMenu() {
+		while (true) {
+			
+			MenuOption mo = view.displayMainMenu();
+			
+			if (mo == MenuOption.SEARCH) subMenuSearch();
+			if (mo == MenuOption.DISPLAY_STATS) subMenuAnalytics();
+			if (mo == MenuOption.ADD);
+			if (mo == MenuOption.QUIT) view.quit();
+			
+		}
+	}
+	
+	
+	private void subMenuSearch() {
 		
 		// Loop in submenu until RETURN -> goto MAIN MENU
 		while (true) {
 			
-			break;
+			MenuOption mo = view.displaySubMenuSearch();
+			
+			if (mo == MenuOption.DISPLAY_ALL);
+			if (mo == MenuOption.DISPLAY_CLOSED);
+			if (mo == MenuOption.SEARCH) subMenuSearchBy();
+			if (mo == MenuOption.RETURN) break;
 			
 		}
 	}
 	
-	private static void subMenuSearchBy() {
+	private void subMenuSearchBy() {
 		
 		//subMenu of Search, loop unitl Return -> goto SEARCH
 		while (true) {
 			
-			break;
+			MenuOption mo = view.displaySubMenuSearchBy();
+			
+			if (mo == MenuOption.EDIT);
+			if (mo == MenuOption.DISPLAY_FILES);
+			if (mo == MenuOption.ADD_FILE);
+			if (mo == MenuOption.DELETE);
+			if (mo == MenuOption.RETURN) break;
+			
 		}
 	}
 	
-	private static void subMenuAnalytics() {
+	private void subMenuAnalytics() {
 		
 		// Loop in submenu until RETRUN -> goto MAIN MENU
 		
 		while (true) {
 			
-			break;
+			MenuOption mo = view.displaySubMenuAnalytics();
+			
+			if (mo == MenuOption.EDIT);
+			if (mo == MenuOption.DISPLAY_FILES);
+			if (mo == MenuOption.ADD_FILE);
+			if (mo == MenuOption.DELETE);
+			if (mo == MenuOption.RETURN) break;
 			
 		}
 		
+	}
+	
+	public static void main(String[] args) {
+
+		// Loop in MAIN MENU until QUIT
+		Controller c = new Controller();
+		c.mainMenu();
 	}
 }
 

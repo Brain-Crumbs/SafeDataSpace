@@ -37,9 +37,9 @@ public class DBHandler {
 			boolean isActive = rs.getBoolean("isActive");
 			String amountString = Integer.toString(amountUsed);
 			String isActiveString = Boolean.toString(isActive);
-			 contractString = name + " " + amountString + " " + isActiveString;
-			 contractList.add(contractString);
-				Object[] contractStrings = contractList.toArray();
+			contractString = name + " " + amountString + " " + isActiveString;
+			contractList.add(contractString);
+			Object[] contractStrings = contractList.toArray();
 
 		}
 		
