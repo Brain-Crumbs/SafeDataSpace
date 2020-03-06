@@ -36,7 +36,7 @@ public class ConsoleView {
 		switch(input) {
 		case "1": return MenuOption.SEARCH;
 		case "2": return MenuOption.DISPLAY_STATS;
-		case "3": return MenuOption.ADD;
+		case "3": createRecordFlag = true; return MenuOption.ADD;
 		case "q": return MenuOption.QUIT;
 		default: return MenuOption.ERROR;
 		}
@@ -62,11 +62,22 @@ public class ConsoleView {
 		switch(input) {
 		case "0": return MenuOption.DISPLAY_ALL;
 		case "1": return MenuOption.DISPLAY_CLOSED;
+<<<<<<< HEAD
 		case "2": return MenuOption.SEARCH;
 		case "3": return MenuOption.DISPLAY_STATS;
 		case "4": return MenuOption.ADD;
 		case "q": return MenuOption.QUIT;
 		case "r": return MenuOption.RETURN;
+=======
+		case "2": return MenuOption.SEARCH;
+<<<<<<< HEAD
+		case "3": return MenuOption.DISPLAY_STATS;
+		case "4": return MenuOption.ADD;
+		case "q": return MenuOption.QUIT;
+=======
+		case "r": return MenuOption.RETURN;
+>>>>>>> refs/remotes/origin/master
+>>>>>>> branch '#9AddFiileToDatabase' of https://github.com/Brain-Crumbs/SafeDataSpace.git
 		default: return MenuOption.ERROR;
 		}
 		
@@ -85,6 +96,7 @@ public class ConsoleView {
 			System.out.println("Please input the file path:");
 			path = in.readLine(); // adding file path has no functionality for this project
 			System.out.println("Please input file size:");
+<<<<<<< HEAD
 			size = Integer.parseInt(in.readLine());
 			
 			int[] output = {contractID, size};
@@ -97,6 +109,10 @@ public class ConsoleView {
 				System.out.println("Invalid Input");
 			}
 		
+=======
+			size = Double.parseDouble(sc.nextLine());
+			sc.close();
+>>>>>>> branch '#9AddFiileToDatabase' of https://github.com/Brain-Crumbs/SafeDataSpace.git
 		}
 	}
 	
@@ -120,7 +136,7 @@ public class ConsoleView {
 		case "0": return MenuOption.EDIT;
 		case "1": return MenuOption.DISPLAY_FILES;
 		case "2": return MenuOption.ADD_FILE;
-		case "3": return MenuOption.DELETE;
+		case "3": createRecordFlag = false; return MenuOption.DELETE;
 		case "r": return MenuOption.RETURN;
 		default: return MenuOption.ERROR;
 		}
