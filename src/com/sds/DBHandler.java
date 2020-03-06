@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
 
 import javax.swing.ListSelectionModel;
@@ -51,7 +52,14 @@ public class DBHandler {
 		
 	}
 	
-	
+	public void addToDatabase() throws SQLException {
+		Connection con = DriverManager.getConnection(URL, USER, PASS);
+		ConsoleView cv = new ConsoleView();
+		PreparedStatement ps = con.prepareStatement("Insert into files values (fileid " + ConsoleView.contractID + ConsoleView.size + ConsoleView.path + ")");
+		ps.execute();
+		ps = con.prepareStatement("select * from fileid");
+		ps.execute();
+	}
 	
 
 }
