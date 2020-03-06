@@ -95,7 +95,7 @@ public class ConsoleView {
 	
 	public MenuOption displaySubMenuAnalytics() {
 		
-		System.out.println("-------Currently Viewing (contract name / ID)-------\n");
+		System.out.println("-------Accounting and Analytics-------\n");
 		System.out.println("Display Server Stats:  Enter 0");
 		System.out.println("Display Accoutning:    Enter 1");
 		System.out.println("Return:                Enter R");
