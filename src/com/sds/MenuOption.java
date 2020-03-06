@@ -8,11 +8,14 @@ public enum MenuOption {
 	EDIT("Edit"),
 	ADD("Add"),
 	DELETE("Delete"),
-	DISPLAY_STATUS("Display Server Stats"),
+	DISPLAY_STATS("Display Server Stats"),
 	DISPLAY_REVENUE("Display Accounting Info"),
 	ERROR("Error"),
+	DISPLAY_FILES("Display All Files"), 
+	ADD_FILE("Add File"),
 	RETURN("Return to last Menu"),
 	QUIT("Exit the application");
+	
 	
 	private final String moString;
 
