@@ -1,18 +1,11 @@
 package com.sds;
 
-import java.awt.List;
-import java.io.ObjectInputStream.GetField;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Scanner;
-import java.util.concurrent.CountDownLatch;
-
-import javax.swing.ListSelectionModel;
 
 public class DBHandler {
 	
@@ -54,7 +47,6 @@ public class DBHandler {
 	
 	public void addToDatabase() throws SQLException {
 		Connection con = DriverManager.getConnection(URL, USER, PASS);
-		ConsoleView cv = new ConsoleView();
 		PreparedStatement ps = con.prepareStatement("Insert into files values (fileid " + ConsoleView.contractID + ConsoleView.size + ConsoleView.path + ")");
 		ps.execute();
 		ps = con.prepareStatement("select * from fileid");
