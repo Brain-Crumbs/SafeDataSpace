@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
 
-import com.mysql.cj.x.protobuf.MysqlxConnection.Close;
 
 public class ConsoleView {
 	
@@ -66,7 +65,7 @@ public class ConsoleView {
 		}
 		
 	}
-	static void displayAllContacts() 
+	 void displayAllContacts() 
 	{
 		try
 		{
@@ -96,7 +95,7 @@ public class ConsoleView {
 	
 	}
 	
-	static void displayClosedContacts()  
+	 void displayClosedContacts()  
 	{
 		String[][] contactStrings;
 		DBHandler handler;
