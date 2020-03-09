@@ -28,6 +28,7 @@ public class DBHandler {
 	private static final String UPDATE_CONTRACT_TOTAL_SIZE = "Update contract set amountUsed = amountUsed + ? where contractID  = ?";
 	private static final String ADD_NEW_CONTACT_STRING = "insert into contract values";
 	private static final String GET_COLUMN_COUNT = "SELECT COUNT(ContractID) FROM Contract";
+	private static final String DELETE_CONTRACT = "DELETE FROM contract where name =";
 	private static final String URL = "jdbc:mysql://localhost:3306/safedatabase";
 	private static final String USER = "root";
 	private static final String PASS = "root";
@@ -39,6 +40,37 @@ public class DBHandler {
 	
 	public DBHandler() throws SQLException {
 		this.con = DriverManager.getConnection(URL,USER,PASS);
+	}
+	
+	public void deleteContract() 
+	{
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Enter name of contract to delete");
+		String contractToDelete = scan.nextLine();
+		System.out.println(DELETE_CONTRACT +"'" + contractToDelete+ "';" );
+
+		System.out.println("are you sure you want to delete"  + contractToDelete);
+		String confrirmDelete = scan.next();
+		if (confrirmDelete.equalsIgnoreCase("y") || confrirmDelete.equalsIgnoreCase("yes"))
+		{
+		try
+		{
+		String deleteString = (DELETE_CONTRACT +"'" + contractToDelete+ "';");
+		pst = con.prepareStatement(deleteString);
+			pst.executeUpdate(deleteString);
+
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(contractToDelete + "'s contract is deleted");
+		} else {
+			System.out.println("Contract does not exsist");
+		}
+		
+		
+		
 	}
 	
 	String[][] contractArray;
