@@ -19,6 +19,7 @@ public class Controller {
 		// Loop in MAIN MENU until QUIT
 		while (true) {
 			
+
 			MenuOption mo = view.displayMainMenu();
 			
 			if (mo == MenuOption.DISPLAY_ALL) view.displayAllContacts(); ;
@@ -29,6 +30,7 @@ public class Controller {
 			if (mo == MenuOption.QUIT) view.quit();
 			
 		}
+
 	}
 	
 	public void mainMenu() {
@@ -52,8 +54,8 @@ public class Controller {
 			
 			MenuOption mo = view.displaySubMenuSearch();
 			
-			if (mo == MenuOption.DISPLAY_ALL);
-			if (mo == MenuOption.DISPLAY_CLOSED);
+			if (mo == MenuOption.DISPLAY_ALL)view.displayAllContacts();;
+			if (mo == MenuOption.DISPLAY_CLOSED)view.displayClosedContacts();;
 			if (mo == MenuOption.SEARCH) subMenuSearchBy();
 			if (mo == MenuOption.RETURN) break;
 			

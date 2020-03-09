@@ -19,6 +19,7 @@ public class DBHandler {
 	private static final String INSERT_INTO_FILES = "Insert into files values (fileid, ?, ?)";
 	private static final String GET_ALL_FILES = "select * from fileid";
 	private static final String UPDATE_CONTRACT_TOTAL_SIZE = "Update contract set amountUsed = amountUsed + ? where contractID  = ?";
+	private static final String ADD_NEW_CONTACT_STRING = "insert into contract values";
 	
 	private static final String URL = "jdbc:mysql://localhost:3306/safedatabase";
 	private static final String USER = "root";
@@ -66,6 +67,7 @@ public class DBHandler {
 
 	}
 
+
 	public void addFilesToDatabase(int[] fileData){
 		int contractID = fileData[0];
 		int size = fileData[1];
@@ -85,6 +87,13 @@ public class DBHandler {
 			e.printStackTrace();
 		}
 	}
+
 	
+	void addNewConttact () 
+	{
+		
+	}
+	
+
 
 }

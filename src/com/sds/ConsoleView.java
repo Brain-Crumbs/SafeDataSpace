@@ -126,7 +126,7 @@ public class ConsoleView {
 		}
 		
 	}
-	static void displayAllContacts() 
+	 void displayAllContacts() 
 	{
 		try
 		{
@@ -154,10 +154,9 @@ public class ConsoleView {
 			e.printStackTrace();
 		}
 	
-
 	}
 	
-	static void displayClosedContacts()  
+	 void displayClosedContacts()  
 	{
 		String[][] contactStrings;
 		DBHandler handler;
