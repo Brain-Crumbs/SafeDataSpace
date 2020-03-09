@@ -3,8 +3,8 @@ package com.sds;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
 import java.util.Scanner;
-
 import com.mysql.cj.x.protobuf.MysqlxConnection.Close;
 
 public class ConsoleView {
@@ -126,7 +126,66 @@ public class ConsoleView {
 		}
 		
 	}
+	 void displayAllContacts() 
+	{
+		try
+		{
+			String [][] contactStrings;
+			DBHandler handler = new DBHandler();
+			contactStrings = handler.GetFieldAllContracts();
+			System.out.println("-----Contacts-----");
+			System.out.println("Name\t  Space used\t\tAcvtive");
+			for (int i = 0; i < contactStrings.length; i++)
+			{
+				for (int j = 0; j < contactStrings[i].length; j++)
+				{
+					
+					System.out.print(contactStrings[i][j] +"\t\t");
+					if (j==2)
+					{
+						System.out.println();
+					}
+					
+				}
+			}
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
+	}
+	
+	 void displayClosedContacts()  
+	{
+		String[][] contactStrings;
+		DBHandler handler;
+		try
+		{
+			handler = new DBHandler();
+			contactStrings = handler.GetFieldAllContracts();
+			System.out.println("----Inactive Contracts----");
+			for (int i = 0; i <= contactStrings.length-1; i++)
+			{
+				for (int j = 0; j <=contactStrings.length -1; j++)
+				{
+					if (Boolean.parseBoolean(contactStrings[i][2]) == false)
+					{
+						System.out.print(contactStrings[i][j] + " ");
+					}
+				}
+			}
+			System.out.println("");
+
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	}
+
+
 	public MenuOption displaySubMenuAnalytics() {
 		
 		System.out.println("-------Accounting and Analytics-------\n");
@@ -158,6 +217,7 @@ public class ConsoleView {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		System.out.println("Good Bye");
 		System.exit(0);
 	}
