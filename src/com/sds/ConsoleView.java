@@ -101,7 +101,7 @@ public class ConsoleView {
 	
 	public MenuOption displaySubMenuSearchBy() {
 		
-		System.out.println("-------Currently Viewing (contract name / ID)-------\n");
+		//System.out.println("-------Currently Viewing (contract name / ID)-------\n");
 		System.out.println("Edit Contract:  Enter 0");
 		System.out.println("View Files:     Enter 1");
 		System.out.println("Add file:       Enter 2");

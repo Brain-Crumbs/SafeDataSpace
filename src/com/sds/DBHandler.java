@@ -29,6 +29,7 @@ public class DBHandler {
 	private static final String ADD_NEW_CONTACT_STRING = "insert into contract values";
 	private static final String GET_COLUMN_COUNT = "SELECT COUNT(ContractID) FROM Contract";
 	private static final String DELETE_CONTRACT = "DELETE FROM contract where name =";
+	private static final String SEARCH_CONTRACT = "SELECT name, contractID FROM contract where name=";
 	private static final String URL = "jdbc:mysql://localhost:3306/safedatabase";
 	private static final String USER = "root";
 	private static final String PASS = "root";
@@ -40,6 +41,34 @@ public class DBHandler {
 	
 	public DBHandler() throws SQLException {
 		this.con = DriverManager.getConnection(URL,USER,PASS);
+	}
+	
+	public void searchForContract() 
+	{
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Enter contract name to search for:");
+		String searchByName = scan.nextLine();
+		try
+		{
+			searchByName = SEARCH_CONTRACT + "'" + searchByName + "'";
+			pst = con.prepareStatement(searchByName);
+			rs = pst.executeQuery(searchByName);
+			System.out.println("Name\tContract ID");
+			while (rs.next())
+			{
+				searchByName = rs.getString("name");
+				searchByName += "\t";
+				searchByName += rs.getString("contractID");
+				System.out.println(searchByName);
+			}
+			System.out.println("__________________");
+
+			
+		} catch (Exception e)
+		{
+			// TODO: handle exception
+		}
+		
 	}
 	
 	public void deleteContract() 

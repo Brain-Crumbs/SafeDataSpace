@@ -69,7 +69,7 @@ public class Controller {
 			
 			MenuOption mo = view.displaySubMenuSearchBy();
 			
-			if (mo == MenuOption.EDIT);
+			if (mo == MenuOption.EDIT) dbHandler.searchForContract();
 			if (mo == MenuOption.DISPLAY_FILES);
 			if (mo == MenuOption.ADD_FILE) dbHandler.addFilesToDatabase(view.getUserFile());
 			if (mo == MenuOption.DELETE)dbHandler.deleteContract();
