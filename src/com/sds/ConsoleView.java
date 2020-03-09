@@ -3,10 +3,12 @@ package com.sds;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 import com.mysql.cj.x.protobuf.MysqlxConnection.Close;
 
 public class ConsoleView {
+	static boolean createRecordFlag = false;
 	
 	private BufferedReader in;
 	
@@ -15,6 +17,7 @@ public class ConsoleView {
 	}
 	
 	public MenuOption displayMainMenu() {
+		
 		
 		System.out.println("-------Welcome to SafeDataSpace.com BackOffice-------\n");
 		System.out.println("Seach Contracts:           Enter 1");
@@ -60,10 +63,41 @@ public class ConsoleView {
 		case "0": return MenuOption.DISPLAY_ALL;
 		case "1": return MenuOption.DISPLAY_CLOSED;
 		case "2": return MenuOption.SEARCH;
+		case "3": return MenuOption.DISPLAY_STATS;
+		case "4": return MenuOption.ADD;
+		case "q": return MenuOption.QUIT;
 		case "r": return MenuOption.RETURN;
 		default: return MenuOption.ERROR;
 		}
 		
+	
+		}
+	
+	public int[] getUserFile() {
+		int contractID = -1;
+		String path;
+		int size;
+		
+		while (true) {
+		try {
+			System.out.println("Please input the ContractID:");
+			contractID = Integer.parseInt(in.readLine());
+			System.out.println("Please input the file path:");
+			path = in.readLine(); // adding file path has no functionality for this project
+			System.out.println("Please input file size:");
+			size = Integer.parseInt(in.readLine());
+			
+			int[] output = {contractID, size};
+			return output;
+		
+		
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (NumberFormatException e) {
+				System.out.println("Invalid Input");
+			}
+		
+		}
 	}
 	
 	public MenuOption displaySubMenuSearchBy() {
