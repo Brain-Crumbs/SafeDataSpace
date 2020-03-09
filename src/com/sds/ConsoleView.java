@@ -164,9 +164,9 @@ public class ConsoleView {
 			handler = new DBHandler();
 			contactStrings = handler.GetFieldAllContracts();
 			System.out.println("----Inactive Contracts----");
-			for (int i = 0; i <= contactStrings.length-1; i++)
+			for (int i = 0; i <= contactStrings.length -1; i++)
 			{
-				for (int j = 0; j <=contactStrings.length -1; j++)
+				for (int j = 0; j <=2; j++)
 				{
 					if (Boolean.parseBoolean(contactStrings[i][2]) == false)
 					{
