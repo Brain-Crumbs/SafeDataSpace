@@ -68,5 +68,6 @@ class TestDBHandler {
 		ConsoleView view = new  ConsoleView();
 		view.displayClosedContacts();
 	}
+	
 
 }

@@ -26,7 +26,7 @@ public class Controller {
 			if (mo == MenuOption.DISPLAY_CLOSED) view.displayClosedContacts();
 			if (mo == MenuOption.SEARCH) subMenuSearch();
 			if (mo == MenuOption.DISPLAY_STATS);
-			if (mo == MenuOption.ADD);
+			if (mo == MenuOption.ADD)dbHandler.addNewContract();
 			if (mo == MenuOption.QUIT) view.quit();
 			
 		}
@@ -40,7 +40,7 @@ public class Controller {
 			
 			if (mo == MenuOption.SEARCH) subMenuSearch();
 			if (mo == MenuOption.DISPLAY_STATS) subMenuAnalytics();
-			if (mo == MenuOption.ADD);
+			if (mo == MenuOption.ADD) dbHandler.addNewContract();
 			if (mo == MenuOption.QUIT) view.quit();
 			
 		}
