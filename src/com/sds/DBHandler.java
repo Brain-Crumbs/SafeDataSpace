@@ -16,6 +16,7 @@ import javax.swing.ListSelectionModel;
 public class DBHandler {
 	
 	private static final String GET_ALL_CONTRACTS = "select * from contract";
+	private static final String GET_SIZE = "SELECT Size FROM files";
 	
 	private static final String URL = "jdbc:mysql://localhost:3306/safedatabase";
 	private static final String USER = "root";
@@ -51,8 +52,24 @@ public class DBHandler {
 		
 	}
 	
-	public long[] getSpaceData() {
+	public long[] getSpaceData() throws SQLException {
 		long[] spaceData = {0, 0, 0};
+		spaceData[1] = SafeDataSpace.getTotalSpace();
+
+		pst = con.prepareStatement(GET_ALL_CONTRACTS);
+		rs = pst.executeQuery(GET_ALL_CONTRACTS);
+		long spaceUsed = 0;
+		while(rs.next()) {
+			int amountUsed = rs.getInt("amountUsed");
+			spaceUsed += amountUsed;
+		}
+		
+		spaceData[2] = spaceUsed;
+		
+		long spaceAvailable = SafeDataSpace.getTotalSpace() - spaceUsed;
+		
+		spaceData[3] = spaceAvailable;
+		
 		return spaceData;
 	}
 	
