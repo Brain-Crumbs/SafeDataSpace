@@ -4,11 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
-import java.util.Scanner;
-import com.mysql.cj.x.protobuf.MysqlxConnection.Close;
 
 public class ConsoleView {
-	static boolean createRecordFlag = false;
 	
 	private BufferedReader in;
 	

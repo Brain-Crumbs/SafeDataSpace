@@ -64,13 +64,13 @@ public class DBHandler {
 			Object[] contractStrings = contractList.toArray();
 
 		}
-		 return contractArray;
-
+		return contractArray;
 	}
 	
 	public long[] getSpaceData() throws SQLException {
 		long[] spaceData = {0, 0, 0};
 		spaceData[1] = SafeDataSpace.getTotalSpace();
+
 		pst = con.prepareStatement(GET_ALL_CONTRACTS);
 		rs = pst.executeQuery(GET_ALL_CONTRACTS);
 		long spaceUsed = 0;
@@ -86,7 +86,11 @@ public class DBHandler {
 		spaceData[3] = spaceAvailable;
 		
 		return spaceData;
+
 	}
+	
+
+	
 
 	public void addFilesToDatabase(int[] fileData){
 		int contractID = fileData[0];
