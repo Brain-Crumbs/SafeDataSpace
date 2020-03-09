@@ -190,8 +190,7 @@ public class DBHandler {
 			ps.executeUpdate();
 			ResultSet tableKey = ps.getGeneratedKeys();
 			tableKey.next();
-			//System.out.println("Contract added!");
-			System.out.println(addToDB);
+			System.out.println("Contract added!");
 			
 		} catch (Exception e)
 		{
