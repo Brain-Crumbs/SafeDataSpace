@@ -54,7 +54,7 @@ public class Controller {
 			
 			if (mo == MenuOption.EDIT);
 			if (mo == MenuOption.DISPLAY_FILES);
-			if (mo == MenuOption.ADD_FILE);
+			if (mo == MenuOption.ADD_FILE) dbHandler.addFilesToDatabase(view.getUserFile());
 			if (mo == MenuOption.DELETE);
 			if (mo == MenuOption.RETURN) break;
 			
