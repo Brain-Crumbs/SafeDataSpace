@@ -17,6 +17,7 @@ import javax.swing.ListSelectionModel;
 public class DBHandler {
 	
 	private static final String GET_ALL_CONTRACTS = "select * from contract";
+	private static final String ADD_NEW_CONTACT_STRING = "insert into contract values";
 	
 	private static final String URL = "jdbc:mysql://localhost:3306/safedatabase";
 	private static final String USER = "root";
@@ -61,6 +62,11 @@ public class DBHandler {
 		}
 		 return contractArray;
 
+	}
+	
+	void addNewConttact () 
+	{
+		
 	}
 	
 	
