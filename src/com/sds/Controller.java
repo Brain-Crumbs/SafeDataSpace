@@ -4,6 +4,8 @@ import java.sql.SQLException;
 
 public class Controller {
 	
+	private Contract contract;
+	
 	ConsoleView view;
 	DBHandler dbHandler;
 	
@@ -15,20 +17,6 @@ public class Controller {
 			e.printStackTrace();
 		}
 		
-		// Loop in MAIN MENU until QUIT
-		while (true) {
-			
-
-			MenuOption mo = view.displayMainMenu();
-			
-			if (mo == MenuOption.DISPLAY_ALL) view.displayAllContacts(); ;
-			if (mo == MenuOption.DISPLAY_CLOSED) view.displayClosedContacts();
-			if (mo == MenuOption.SEARCH) subMenuSearch();
-			if (mo == MenuOption.DISPLAY_STATS);
-			if (mo == MenuOption.ADD);
-			if (mo == MenuOption.QUIT) view.quit();
-			
-		}
 
 	}
 	
@@ -53,7 +41,7 @@ public class Controller {
 			
 			MenuOption mo = view.displaySubMenuSearch();
 			
-			if (mo == MenuOption.DISPLAY_ALL)view.displayAllContacts();;
+			if (mo == MenuOption.DISPLAY_ALL)view.displayAllContracts();;
 			if (mo == MenuOption.DISPLAY_CLOSED)view.displayClosedContacts();;
 			if (mo == MenuOption.SEARCH) subMenuSearchBy();
 			if (mo == MenuOption.RETURN) break;
@@ -63,14 +51,16 @@ public class Controller {
 	
 	private void subMenuSearchBy() {
 		
-		//subMenu of Search, loop unitl Return -> goto SEARCH
+		contract = view.setContract(new Contract());
+		
+		//subMenu of Search, loop until Return -> goto SEARCH
 		while (true) {
 			
-			MenuOption mo = view.displaySubMenuSearchBy();
+			MenuOption mo = view.displaySubMenuSearchBy(contract);
 			
 			if (mo == MenuOption.EDIT);
-			if (mo == MenuOption.DISPLAY_FILES);
-			if (mo == MenuOption.ADD_FILE) dbHandler.addFilesToDatabase(view.getUserFile());
+			if (mo == MenuOption.DISPLAY_FILES) view.displayContractFiles(dbHandler.getContractFiles(contract.getID()));
+			if (mo == MenuOption.ADD_FILE) dbHandler.addFilesToDatabase(view.getUserFile(contract.getID()));
 			if (mo == MenuOption.DELETE);
 			if (mo == MenuOption.RETURN) break;
 			
@@ -85,11 +75,10 @@ public class Controller {
 			
 			MenuOption mo = view.displaySubMenuAnalytics();
 			
-			if (mo == MenuOption.EDIT);
-			if (mo == MenuOption.DISPLAY_FILES);
-			if (mo == MenuOption.ADD_FILE);
-			if (mo == MenuOption.DELETE);
+			if (mo == MenuOption.DISPLAY_STATS) view.displaySpaceData(dbHandler.getSpaceData());;
+			if (mo == MenuOption.DISPLAY_REVENUE);
 			if (mo == MenuOption.RETURN) break;
+			if (mo == MenuOption.ERROR);
 			
 		}
 		
