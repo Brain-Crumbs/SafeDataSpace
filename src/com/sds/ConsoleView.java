@@ -4,13 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
-import java.util.Scanner;
-import com.mysql.cj.x.protobuf.MysqlxConnection.Close;
 
 public class ConsoleView {
-	static boolean createRecordFlag = false;
 	
 	private BufferedReader in;
+	
 	
 	public ConsoleView() {
 		this.in = new BufferedReader(new InputStreamReader(System.in));
@@ -73,36 +71,16 @@ public class ConsoleView {
 	
 		}
 	
-	public int[] getUserFile() {
-		int contractID = -1;
-		String path;
-		int size;
+	public MenuOption displaySubMenuSearchBy(Contract contract) {
 		
-		while (true) {
-		try {
-			System.out.println("Please input the ContractID:");
-			contractID = Integer.parseInt(in.readLine());
-			System.out.println("Please input the file path:");
-			path = in.readLine(); // adding file path has no functionality for this project
-			System.out.println("Please input file size:");
-			size = Integer.parseInt(in.readLine());
-			
-			int[] output = {contractID, size};
-			return output;
+		if (contract.getName() == null || contract.getID() == -1) {
+			System.out.println("Contract was not Found");
+			return MenuOption.RETURN;
+		} 
 		
+		System.out.println("-------Currently Viewing " + contract.getName()  + "/" + contract.getID()
+				+ "-------\n");
 		
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (NumberFormatException e) {
-				System.out.println("Invalid Input");
-			}
-		
-		}
-	}
-	
-	public MenuOption displaySubMenuSearchBy() {
-		
-		System.out.println("-------Currently Viewing (contract name / ID)-------\n");
 		System.out.println("Edit Contract:  Enter 0");
 		System.out.println("View Files:     Enter 1");
 		System.out.println("Add file:       Enter 2");
@@ -126,7 +104,93 @@ public class ConsoleView {
 		}
 		
 	}
-	 void displayAllContacts() 
+	
+	public MenuOption displaySubMenuAnalytics() {
+		
+		System.out.println("-------Accounting and Analytics-------\n");
+		System.out.println("Display Server Stats:  Enter 0");
+		System.out.println("Display Accoutning:    Enter 1");
+		System.out.println("Return:                Enter R");
+		System.out.println();
+		
+		String input = "";
+		try {
+			input = in.readLine().toLowerCase();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		switch(input) {
+		case "0": return MenuOption.DISPLAY_STATS;
+		case "1": return MenuOption.DISPLAY_REVENUE;
+		case "r": return MenuOption.RETURN;
+		default: return MenuOption.ERROR;
+		}
+		
+	}
+	
+	public int[] getUserFile(int contractID) {
+		String path;
+		int size;
+		
+		while (true) {
+		try {
+			System.out.println("Please input the file path:");
+			path = in.readLine(); // adding file path has no functionality for this project
+			System.out.println("Please input file size:");
+			size = Integer.parseInt(in.readLine());
+			
+			int[] output = {contractID, size};
+			return output;
+		
+		
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (NumberFormatException e) {
+				System.out.println("Invalid Input");
+			}
+		
+		}
+	}
+	
+	private static boolean isInteger(String input) {
+		try {
+			Integer.parseInt(input);
+		} catch (NumberFormatException e) {
+			return false;
+		}
+		return true;
+	}
+	
+	public Contract setContract(Contract contract) {
+		DBHandler db;
+		try {
+			db = new DBHandler();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			return contract;
+		}
+		
+		System.out.println("\nPlease Enter Contract Name or ID to search:\n");
+		
+		String input = "";
+		try {
+			input = in.readLine().toLowerCase();
+			if (isInteger(input)) {
+				contract.setID(Integer.parseInt(input));
+				contract.setName(db.searchContract(contract.getID()));
+			} else {
+				contract.setName(input);
+				contract.setID(db.searchContract(input));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return contract;
+	}
+	
+	public void displayAllContracts() 
 	{
 		try
 		{
@@ -156,7 +220,7 @@ public class ConsoleView {
 	
 	}
 	
-	 void displayClosedContacts()  
+	public void displayClosedContacts()  
 	{
 		String[][] contactStrings;
 		DBHandler handler;
@@ -185,27 +249,15 @@ public class ConsoleView {
 	
 	}
 
-
-	public MenuOption displaySubMenuAnalytics() {
-		
-		System.out.println("-------Accounting and Analytics-------\n");
-		System.out.println("Display Server Stats:  Enter 0");
-		System.out.println("Display Accoutning:    Enter 1");
-		System.out.println("Return:                Enter R");
-		System.out.println();
-		
-		String input = "";
-		try {
-			input = in.readLine().toLowerCase();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		switch(input) {
-		case "0": return MenuOption.DISPLAY_STATS;
-		case "1": return MenuOption.DISPLAY_REVENUE;
-		case "r": return MenuOption.RETURN;
-		default: return MenuOption.ERROR;
+	public void displayContractFiles(Object[][] files) {
+	
+		System.out.println("------------FILES CURRENTLY IN SYSTEM--------");
+		for (int r = 0; r < files.length; r++) {
+			if (files[r][0] != null && files[r][2] != null) {
+				System.out.print("File ID: " + files[r][0] + "\tSize: " + files[r][2] + " bytes");
+			System.out.println();
+			}
+			
 		}
 		
 	}
@@ -214,14 +266,11 @@ public class ConsoleView {
 		try {
 			in.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		System.out.println("Good Bye");
 		System.exit(0);
 	}
-	
-
 
 }

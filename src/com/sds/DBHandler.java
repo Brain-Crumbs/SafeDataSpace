@@ -1,5 +1,6 @@
 package com.sds;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import javax.swing.ListSelectionModel;
 
@@ -16,6 +18,7 @@ import javax.swing.ListSelectionModel;
 public class DBHandler {
 	
 	private static final String GET_ALL_CONTRACTS = "select * from contract";
+	private static final String GET_ALL_FILES_WITH_ID = "select * from files where contractID = ?;";
 	private static final String INSERT_INTO_FILES = "Insert into files values (fileid, ?, ?)";
 	private static final String GET_ALL_FILES = "select * from fileid";
 	private static final String UPDATE_CONTRACT_TOTAL_SIZE = "Update contract set amountUsed = amountUsed + ? where contractID  = ?";
@@ -94,6 +97,67 @@ public class DBHandler {
 		
 	}
 	
-
+	public String searchContract(int cID) {
+		try {
+			pst = con.prepareStatement(GET_ALL_CONTRACTS);
+			rs = pst.executeQuery(GET_ALL_CONTRACTS);
+	
+			while (rs.next()){
+				if (rs.getInt("contractID") == cID) {
+					return rs.getString("name").toLowerCase();
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return null;
+	}
+	
+	public int searchContract(String cName) {
+		try {
+			pst = con.prepareStatement(GET_ALL_CONTRACTS);
+			rs = pst.executeQuery(GET_ALL_CONTRACTS);
+			
+			while (rs.next()){
+				String tempName = rs.getString("name").toLowerCase();
+				if (tempName.equals(cName)) {
+					return rs.getInt("contractID");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+		return -1;
+	}
+	
+	public Object[][] getContractFiles(int cID) {
+		
+		try {
+			pst = con.prepareStatement(GET_ALL_FILES_WITH_ID);
+			pst.setInt(1, cID);
+			rs = pst.executeQuery();
+			
+			int cols = rs.getMetaData().getColumnCount();
+			rs.last();
+			int rows = rs.getRow();
+			rs.first();
+			
+			Object[][] resultSet = new Object[rows][cols];
+		        int row = 0;
+		        while (rs.next()) {
+		            for (int i = 0; i < cols; i++) {
+		                resultSet[row][i] = rs.getObject(i+1);
+		            }
+		            row++;
+		        }
+		    return resultSet;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 
 }
