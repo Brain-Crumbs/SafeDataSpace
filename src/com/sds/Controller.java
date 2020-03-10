@@ -75,7 +75,7 @@ public class Controller {
 			
 			MenuOption mo = view.displaySubMenuAnalytics();
 			
-			if (mo == MenuOption.DISPLAY_STATS);
+			if (mo == MenuOption.DISPLAY_STATS) view.displaySpaceData(dbHandler.getSpaceData());;
 			if (mo == MenuOption.DISPLAY_REVENUE);
 			if (mo == MenuOption.RETURN) break;
 			if (mo == MenuOption.ERROR);

@@ -262,6 +262,13 @@ public class ConsoleView {
 		
 	}
 	
+	public void displaySpaceData(long[] spaceData) {
+		
+		System.out.println("\nTotal Space:     " + spaceData[0] + " bytes");
+		System.out.println("Space In Use:    " + spaceData[1] + " bytes");
+		System.out.println("Available Space: " + spaceData[2] + " bytes\n");
+	}
+	
 	public void quit() {
 		try {
 			in.close();
@@ -274,3 +281,4 @@ public class ConsoleView {
 	}
 
 }
+ 
