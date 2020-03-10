@@ -138,7 +138,6 @@ public class ConsoleView {
 			{
 				for (int j = 0; j < contactStrings[i].length; j++)
 				{
-					
 					System.out.print(contactStrings[i][j] +"\t\t");
 					if (j==2)
 					{
