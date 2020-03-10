@@ -19,6 +19,7 @@ public class DBHandler {
 	
 	private static final String GET_ALL_CONTRACTS = "select * from contract";
 	private static final String GET_ALL_FILES_WITH_ID = "select * from files where contractID = ?;";
+	private static final String GET_SIZE = "SELECT Size FROM files";
 	private static final String INSERT_INTO_FILES = "Insert into files values (fileid, ?, ?)";
 	private static final String GET_ALL_FILES = "select * from fileid";
 	private static final String UPDATE_CONTRACT_TOTAL_SIZE = "Update contract set amountUsed = amountUsed + ? where contractID  = ?";
@@ -66,10 +67,33 @@ public class DBHandler {
 			Object[] contractStrings = contractList.toArray();
 
 		}
-		 return contractArray;
+		return contractArray;
+	}
+	
+	public long[] getSpaceData() throws SQLException {
+		long[] spaceData = {0, 0, 0};
+		spaceData[1] = SafeDataSpace.getTotalSpace();
+
+		pst = con.prepareStatement(GET_ALL_CONTRACTS);
+		rs = pst.executeQuery(GET_ALL_CONTRACTS);
+		long spaceUsed = 0;
+		while(rs.next()) {
+			int amountUsed = rs.getInt("amountUsed");
+			spaceUsed += amountUsed;
+		}
+		
+		spaceData[2] = spaceUsed;
+		
+		long spaceAvailable = SafeDataSpace.getTotalSpace() - spaceUsed;
+		
+		spaceData[3] = spaceAvailable;
+		
+		return spaceData;
 
 	}
+	
 
+	
 
 	public void addFilesToDatabase(int[] fileData){
 		int contractID = fileData[0];
