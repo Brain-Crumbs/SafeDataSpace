@@ -7,7 +7,6 @@ public class Controller {
 	ConsoleView view;
 	DBHandler dbHandler;
 	
-	@SuppressWarnings("static-access")
 	public Controller() {
 		this.view = new ConsoleView();
 		try {

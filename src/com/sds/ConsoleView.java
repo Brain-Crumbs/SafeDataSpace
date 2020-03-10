@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class ConsoleView {
-	static boolean createRecordFlag = false;
 	
 	private BufferedReader in;
 	

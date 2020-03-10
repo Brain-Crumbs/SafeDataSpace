@@ -10,26 +10,19 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
-import java.util.jar.Attributes.Name;
-
-import javax.naming.InitialContext;
 import javax.swing.ListSelectionModel;
-
-import com.mysql.cj.exceptions.RSAException;
-import com.mysql.cj.xdevapi.Statement;
 
 
 
 public class DBHandler {
 	
 	private static final String GET_ALL_CONTRACTS = "select * from contract";
+	private static final String GET_SIZE = "SELECT Size FROM files";
 	private static final String INSERT_INTO_FILES = "Insert into files values (fileid, ?, ?)";
 	private static final String GET_ALL_FILES = "select * from fileid";
 	private static final String UPDATE_CONTRACT_TOTAL_SIZE = "Update contract set amountUsed = amountUsed + ? where contractID  = ?";
 	private static final String ADD_NEW_CONTACT_STRING = "insert into contract values";
-	private static final String GET_COLUMN_COUNT = "SELECT COUNT(ContractID) FROM Contract";
-	private static final String DELETE_CONTRACT = "DELETE FROM contract where name =";
-	private static final String SEARCH_CONTRACT = "SELECT name, contractID FROM contract where name=";
+	
 	private static final String URL = "jdbc:mysql://localhost:3306/safedatabase";
 	private static final String USER = "root";
 	private static final String PASS = "root";
