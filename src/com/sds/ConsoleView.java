@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class ConsoleView {
 	
@@ -81,6 +82,21 @@ public class ConsoleView {
 		System.out.println("-------Currently Viewing " + contract.getName()  + "/" + contract.getID()
 				+ "-------\n");
 		
+<<<<<<< HEAD
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (NumberFormatException e) {
+				System.out.println("Invalid Input");
+			}
+		
+		}
+	}
+	
+	public MenuOption displaySubMenuSearchBy() {
+		
+		//System.out.println("-------Currently Viewing (contract name / ID)-------\n");
+=======
+>>>>>>> refs/heads/master
 		System.out.println("Edit Contract:  Enter 0");
 		System.out.println("View Files:     Enter 1");
 		System.out.println("Add file:       Enter 2");
@@ -203,7 +219,6 @@ public class ConsoleView {
 			{
 				for (int j = 0; j < contactStrings[i].length; j++)
 				{
-					
 					System.out.print(contactStrings[i][j] +"\t\t");
 					if (j==2)
 					{
@@ -229,9 +244,9 @@ public class ConsoleView {
 			handler = new DBHandler();
 			contactStrings = handler.GetFieldAllContracts();
 			System.out.println("----Inactive Contracts----");
-			for (int i = 0; i <= contactStrings.length-1; i++)
+			for (int i = 0; i <= contactStrings.length -1; i++)
 			{
-				for (int j = 0; j <=contactStrings.length -1; j++)
+				for (int j = 0; j <=2; j++)
 				{
 					if (Boolean.parseBoolean(contactStrings[i][2]) == false)
 					{

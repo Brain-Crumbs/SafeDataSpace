@@ -9,7 +9,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+<<<<<<< HEAD
+import java.util.Scanner;
+=======
 import java.util.List;
+>>>>>>> refs/heads/master
 import java.util.concurrent.CountDownLatch;
 import javax.swing.ListSelectionModel;
 
@@ -37,7 +41,67 @@ public class DBHandler {
 	public DBHandler() throws SQLException {
 		this.con = DriverManager.getConnection(URL,USER,PASS);
 	}
-	String[][] contractArray = new String[3][3];
+	
+	public void searchForContract() 
+	{
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Enter contract name to search for:");
+		String searchByName = scan.nextLine();
+		try
+		{
+			searchByName = SEARCH_CONTRACT + "'" + searchByName + "'";
+			pst = con.prepareStatement(searchByName);
+			rs = pst.executeQuery(searchByName);
+			System.out.println("Name\tContract ID");
+			while (rs.next())
+			{
+				searchByName = rs.getString("name");
+				searchByName += "\t";
+				searchByName += rs.getString("contractID");
+				System.out.println(searchByName);
+			}
+			System.out.println("__________________");
+
+			
+		} catch (Exception e)
+		{
+			// TODO: handle exception
+		}
+		
+	}
+	
+	public void deleteContract() 
+	{
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Enter name of contract to delete");
+		String contractToDelete = scan.nextLine();
+		System.out.println(DELETE_CONTRACT +"'" + contractToDelete+ "';" );
+
+		System.out.println("are you sure you want to delete"  + contractToDelete);
+		String confrirmDelete = scan.next();
+		if (confrirmDelete.equalsIgnoreCase("y") || confrirmDelete.equalsIgnoreCase("yes"))
+		{
+		try
+		{
+		String deleteString = (DELETE_CONTRACT +"'" + contractToDelete+ "';");
+		pst = con.prepareStatement(deleteString);
+			pst.executeUpdate(deleteString);
+
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(contractToDelete + "'s contract is deleted");
+		} else {
+			System.out.println("Contract does not exsist");
+		}
+		
+		
+		
+	}
+	
+	String[][] contractArray;
 	ArrayList<String> contractList = new ArrayList<>();
 	String contractString;
 	public String[][] GetFieldAllContracts() throws SQLException 
@@ -45,8 +109,13 @@ public class DBHandler {
 		pst = con.prepareStatement(GET_ALL_CONTRACTS);
 		rs = pst.executeQuery(GET_ALL_CONTRACTS);
 		int count = 0;
+		rs.last();
+		int rowCount = rs.getRow();
+		contractArray = new String[rowCount -1][3];
+		rs.first();
 		while (rs.next())
 		{
+			rowCount++;
 			String name = rs.getString("name");
 			int amountUsed = rs.getInt("amountUsed");
 			boolean isActive = rs.getBoolean("isActive");
@@ -59,14 +128,18 @@ public class DBHandler {
 				contractArray[count][1] = amountString;
 				contractArray[count][2] = isActiveString;
 				count+=1;
+				rowCount +=1;
 				//System.out.println(count);
 			
 			 
 			contractString = name + " " + amountString + " " + isActiveString;
 			contractList.add(contractString);
 			Object[] contractStrings = contractList.toArray();
-
 		}
+<<<<<<< HEAD
+		 return contractArray;
+
+=======
 		return contractArray;
 	}
 	
@@ -96,11 +169,10 @@ public class DBHandler {
 			return null;
 		}
 		
+>>>>>>> refs/heads/master
 	}
 	
-
 	
-
 	public void addFilesToDatabase(int[] fileData){
 		int contractID = fileData[0];
 		int size = fileData[1];
@@ -122,11 +194,44 @@ public class DBHandler {
 	}
 
 	
-	void addNewConttact () 
+	void addNewContract () 
 	{
+		Scanner scan = new Scanner(System.in);
+		Boolean activeAccount;
+		System.out.println("Enter name for contract");
+		String contractName = scan.nextLine();
+		System.out.println("Enter GBs used");
+		int GBsize = scan.nextInt();
+		System.out.println("Is this contract active? Yes or no?");
+		String isActive = scan.next();
+		if (isActive.equalsIgnoreCase("y") || isActive.equalsIgnoreCase("yes"))
+		{
+			activeAccount = true;
+		} else 
+		{
+			activeAccount = false;
+		}
 		
+		PreparedStatement ps;
+		try
+		{
+			int tierID = 3;
+			String addToDB = (ADD_NEW_CONTACT_STRING + " (contractID, "+ tierID +", \"" +  contractName +"\""+","+ GBsize +","+ activeAccount +")");
+			ps = con.prepareStatement(addToDB, PreparedStatement.RETURN_GENERATED_KEYS);
+			ps.executeUpdate();
+			ResultSet tableKey = ps.getGeneratedKeys();
+			tableKey.next();
+			System.out.println("Contract added!");
+			
+		} catch (Exception e)
+		{
+			System.err.println("CONTRACT NOT ADDED");
+			e.printStackTrace();
+		}
 	}
 	
+<<<<<<< HEAD
+=======
 	public String searchContract(int cID) {
 		try {
 			pst = con.prepareStatement(GET_ALL_CONTRACTS);
@@ -190,4 +295,5 @@ public class DBHandler {
 		return null;
 	}
 
+>>>>>>> refs/heads/master
 }
