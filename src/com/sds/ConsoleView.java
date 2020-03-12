@@ -186,8 +186,9 @@ public class ConsoleView {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		clearConsole();
 		return contract;
+		
 	}
 	
 	public void displayAllContracts() 
@@ -198,7 +199,7 @@ public class ConsoleView {
 			DBHandler handler = new DBHandler();
 			contactStrings = handler.GetFieldAllContracts();
 			System.out.println("-----Contacts-----");
-			System.out.println("Name\t  Space used\t\tAcvtive");
+			System.out.println("Name\t  Space used\t\tActive");
 			for (int i = 0; i < contactStrings.length; i++)
 			{
 				for (int j = 0; j < contactStrings[i].length; j++)
@@ -212,12 +213,15 @@ public class ConsoleView {
 					
 				}
 			}
+			
+			System.out.println();
+			
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+		waitForUser();
 	}
 	
 	public void displayClosedContacts()  
@@ -246,7 +250,7 @@ public class ConsoleView {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+		waitForUser();
 	}
 
 	public void displayContractFiles(Object[][] files) {
@@ -259,6 +263,8 @@ public class ConsoleView {
 			}
 			
 		}
+		System.out.println();
+		waitForUser();
 		
 	}
 	
@@ -267,6 +273,28 @@ public class ConsoleView {
 		System.out.println("\nTotal Space:     " + spaceData[0] + " bytes");
 		System.out.println("Space In Use:    " + spaceData[1] + " bytes");
 		System.out.println("Available Space: " + spaceData[2] + " bytes\n");
+		
+		waitForUser();
+	}
+	
+	public void waitForUser() {
+		System.out.println();
+		System.out.println("Press Any Key To Continue");
+		try {
+			in.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		clearConsole();
+		
+	}
+	
+	public void clearConsole() {
+		for (int i = 0; i < 50; i++) {
+			System.out.println();
+		}
 	}
 	
 	public void quit() {
@@ -275,7 +303,7 @@ public class ConsoleView {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		System.out.println();
 		System.out.println("Good Bye");
 		System.exit(0);
 	}

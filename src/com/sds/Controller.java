@@ -22,13 +22,17 @@ public class Controller {
 	
 	public void mainMenu() {
 		while (true) {
+			view.clearConsole();
 			
 			MenuOption mo = view.displayMainMenu();
 			
+			view.clearConsole();
+			
 			if (mo == MenuOption.SEARCH) subMenuSearch();
 			if (mo == MenuOption.DISPLAY_STATS) subMenuAnalytics();
-			if (mo == MenuOption.ADD);
+			if (mo == MenuOption.ADD) ;
 			if (mo == MenuOption.QUIT) view.quit();
+			
 			
 		}
 	}
@@ -41,10 +45,13 @@ public class Controller {
 			
 			MenuOption mo = view.displaySubMenuSearch();
 			
+			view.clearConsole();
+			
 			if (mo == MenuOption.DISPLAY_ALL)view.displayAllContracts();;
 			if (mo == MenuOption.DISPLAY_CLOSED)view.displayClosedContacts();;
 			if (mo == MenuOption.SEARCH) subMenuSearchBy();
 			if (mo == MenuOption.RETURN) break;
+			
 			
 		}
 	}
@@ -58,11 +65,14 @@ public class Controller {
 			
 			MenuOption mo = view.displaySubMenuSearchBy(contract);
 			
+			view.clearConsole();
+			
 			if (mo == MenuOption.EDIT);
 			if (mo == MenuOption.DISPLAY_FILES) view.displayContractFiles(dbHandler.getContractFiles(contract.getID()));
 			if (mo == MenuOption.ADD_FILE) dbHandler.addFilesToDatabase(view.getUserFile(contract.getID()));
 			if (mo == MenuOption.DELETE);
 			if (mo == MenuOption.RETURN) break;
+			
 			
 		}
 	}
@@ -75,10 +85,13 @@ public class Controller {
 			
 			MenuOption mo = view.displaySubMenuAnalytics();
 			
+			view.clearConsole();
+			
 			if (mo == MenuOption.DISPLAY_STATS) view.displaySpaceData(dbHandler.getSpaceData());;
 			if (mo == MenuOption.DISPLAY_REVENUE);
 			if (mo == MenuOption.RETURN) break;
 			if (mo == MenuOption.ERROR);
+			
 			
 		}
 		
